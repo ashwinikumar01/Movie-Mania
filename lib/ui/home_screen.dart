@@ -1,8 +1,14 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/bloc/movie_bloc.dart';
+import 'package:movie_app/constants/constants.dart';
+import 'package:movie_app/model/popular_movies.dart';
 import 'package:movie_app/widget/discover_card.dart';
+import 'package:movie_app/widget/loader.dart';
+import 'package:movie_app/widget/movies_list_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: GoogleFonts.montserrat(
               textStyle: TextStyle(
             fontWeight: FontWeight.w600,
-            color: Colors.white70,
+            color: Colors.white,
           )),
         ),
         centerTitle: true,
@@ -41,25 +47,20 @@ class _HomeScreenState extends State<HomeScreen> {
       body: BlocBuilder<MovieBloc, MovieState>(
         builder: (context, state) {
           if (state is MovieLoadInProgress) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Loader();
           }
           if (state is MovieLoadSuccess) {
             final movieData = state.movieDiscover;
             final popularMovies = state.popularMovies;
+
             return movieData.results.length == null
                 ? CircularProgressIndicator()
                 : ListView(
-                    physics: AlwaysScrollableScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
                     children: <Widget>[
                       DiscoverCard(movieData: movieData),
-                      // Center(
-                      //   child: Text(
-                      //    similarMovies,
-                      //     style: TextStyle(color: Colors.white),
-                      //   ),
-                      // )
+                      MoviesListCard(popularMovies: popularMovies),
+                      MoviesListCard(popularMovies: popularMovies),
                     ],
                   );
           }
@@ -70,42 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
 
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return Loader();
         },
       ),
     );
   }
 }
-
-// SizedBox(
-//                     width: double.infinity,
-//                     height: 200.0,
-//                     child: Column(
-//                       children: <Widget>[
-//                         Expanded(
-//                           child: Swiper(
-//                             // itemCount: movieData.results.length,
-//                             viewportFraction: 0.75,
-//                             scale: 0.9,
-//                             scrollDirection: Axis.horizontal,
-//                             itemCount: movieData.results.length,
-//                             itemBuilder: (context, index) {
-//                               return ClipRRect(
-//                                 borderRadius: BorderRadius.circular(8.0),
-//                                 child: FadeInImage(
-//                                   image: CachedNetworkImageProvider(
-//                                     IMAGE_URL +
-//                                         movieData.results[index].posterPath,
-//                                   ),
-//                                   fit: BoxFit.cover,
-//                                   placeholder: AssetImage('assets/loading.gif'),
-//                                 ),
-//                               );
-//                             },
-//                           ),
-//                         )
-//                       ],
-//                     ),
-//                   )

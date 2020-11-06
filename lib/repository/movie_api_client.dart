@@ -19,7 +19,8 @@ class MovieApiClient {
   Future<MovieDiscover> getAllData() async {
     try {
       final response = await _dio.get(
-          '$baseUrl/3/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=$page');
+        '$baseUrl/3/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=7',
+      );
 
       return MovieDiscover.fromJson(response.data);
     } on DioError catch (e) {
@@ -31,7 +32,8 @@ class MovieApiClient {
   Future<PopularMovies> getPopularMovies() async {
     try {
       final response = await _dio.get(
-          '$baseUrl/3/movie/popular?api_key=$API_KEY&language=en-US&page=$pagge');
+        '$baseUrl/3/movie/popular?api_key=$API_KEY&language=en-US&page=9',
+      );
 
       return PopularMovies.fromJson(response.data);
     } on DioError catch (e) {
@@ -39,10 +41,4 @@ class MovieApiClient {
       throw e.error;
     }
   }
-
-  // fetchSimilarData() async {
-  //   http.Response response = await http.get(
-  //       '$baseUrl/3/movie/3/similar?api_key=$API_KEY&language=en-US&page=$page');
-  //   return json.decode(response.body);
-  // }
 }

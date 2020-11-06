@@ -8,7 +8,7 @@ import 'package:movie_app/model/movie_discover.dart';
 class DiscoverCard extends StatelessWidget {
   final MovieDiscover movieData;
 
-  DiscoverCard({Key key, this.movieData});
+  DiscoverCard({@required this.movieData}) : assert(movieData != null);
 
   @override
   Widget build(BuildContext context) {

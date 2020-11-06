@@ -23,11 +23,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  auto_size_text: ^2.1.0
   cached_network_image: ^2.3.3
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   equatable: ^1.2.5
   flutter_bloc: ^6.0.6
+  flutter_spinkit: ^4.1.2+1
   flutter_swiper: ^1.1.6
   google_fonts: ^1.1.1
   http: ^0.12.2
