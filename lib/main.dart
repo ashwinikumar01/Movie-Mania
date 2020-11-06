@@ -31,7 +31,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Weather Forecast',
       home: BlocProvider(
         create: (context) => MovieBloc(movieRepository: movieRepository),

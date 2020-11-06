@@ -15,7 +15,7 @@ class DiscoverCard extends StatelessWidget {
     final query = MediaQuery.of(context).size.height;
     return SizedBox(
       width: double.infinity,
-      height: query / 2.5,
+      height: query / 2.9,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

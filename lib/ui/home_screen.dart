@@ -47,10 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           if (state is MovieLoadSuccess) {
             final movieData = state.movieDiscover;
-
+            final popularMovies = state.popularMovies;
             return movieData.results.length == null
                 ? CircularProgressIndicator()
-                : DiscoverCard(movieData: movieData);
+                : ListView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    children: <Widget>[
+                      DiscoverCard(movieData: movieData),
+                      // Center(
+                      //   child: Text(
+                      //    similarMovies,
+                      //     style: TextStyle(color: Colors.white),
+                      //   ),
+                      // )
+                    ],
+                  );
           }
           if (state is MovieLoadFailure) {
             return Text(
