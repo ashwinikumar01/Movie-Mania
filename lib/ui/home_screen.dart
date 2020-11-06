@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/bloc/movie_bloc.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:movie_app/constants/constants.dart';
+import 'package:movie_app/widget/discover_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,12 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.black,
         title: Text(
           'Movie Mania',
           style: GoogleFonts.montserrat(
               textStyle: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: Colors.white70,
           )),
         ),
@@ -52,47 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return movieData.results.length == null
                 ? CircularProgressIndicator()
-                : SizedBox(
-                    width: double.infinity,
-                    height: 300,
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Movie Mania',
-                          style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Swiper(
-                            autoplay: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: FadeInImage(
-                                  image: CachedNetworkImageProvider(
-                                    IMAGE_URL +
-                                        movieData.results[index].posterPath,
-                                  ),
-                                  fit: BoxFit.cover,
-                                  placeholder: AssetImage('assets/loading.gif'),
-                                  placeholderErrorBuilder:
-                                      (context, url, error) =>
-                                          Icon(Icons.error),
-                                ),
-                              );
-                            },
-                            itemCount: movieData.results.length,
-                            viewportFraction: 0.75,
-                            scale: 0.9,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                : DiscoverCard(movieData: movieData);
           }
           if (state is MovieLoadFailure) {
             return Text(
