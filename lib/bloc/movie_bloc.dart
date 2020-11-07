@@ -13,6 +13,11 @@ class MovieRequested extends MovieEvent {
   List<Object> get props => [];
 }
 
+class MovieRefreshRequested extends MovieEvent {
+  @override
+  List<Object> get props => [];
+}
+
 abstract class MovieState extends Equatable {
   const MovieState();
 
@@ -54,12 +59,23 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       : assert(movieRepository != null),
         super(null);
 
+  // @override
+  // Stream<MovieState> mapEventToState(
+  //   MovieEvent event,
+  // ) async* {
+  //   if (event is MovieRequested) {
+  //     yield* _mapFetchCaseToState(event);
+  //   }
+  // }
+
   @override
   Stream<MovieState> mapEventToState(
     MovieEvent event,
   ) async* {
     if (event is MovieRequested) {
       yield* _mapFetchCaseToState(event);
+    } else if (event is MovieRefreshRequested) {
+      yield* _mapCovidRefreshRequestedToState(event);
     }
   }
 
@@ -81,5 +97,22 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     } catch (_) {
       yield MovieLoadFailure();
     }
+  }
+
+  Stream<MovieState> _mapCovidRefreshRequestedToState(
+    MovieRefreshRequested event,
+  ) async* {
+    try {
+      final allData = await movieRepository.getAllData();
+      final populaarData = await movieRepository.getPopularData();
+      final topRatedData = await movieRepository.getTopRatedData();
+      final trending = await movieRepository.getTrendingOfWeek();
+      yield MovieLoadSuccess(
+        movieDiscover: allData,
+        popularData: populaarData,
+        topRatedData: topRatedData,
+        trending: trending,
+      );
+    } catch (_) {}
   }
 }

@@ -19,7 +19,7 @@ class MovieApiClient {
   Future<MovieDiscover> getAllData() async {
     try {
       final response = await _dio.get(baseUrl +
-          '/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
+          '/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=8');
       return MovieDiscover.fromJson(response.data);
     } on DioError catch (e) {
       print(e.error);
@@ -29,14 +29,14 @@ class MovieApiClient {
 
   getPopularData() async {
     http.Response response = await http.get(
-      '$baseUrl/movie/popular?api_key=$API_KEY&language=en-US&page=1',
+      '$baseUrl/movie/popular?api_key=$API_KEY&language=en-US&page=10',
     );
     return json.decode(response.body);
   }
 
   getTopRatedData() async {
     http.Response response = await http.get(
-      '$baseUrl/movie/top_rated?api_key=$API_KEY&language=en-US&page=1',
+      '$baseUrl/movie/top_rated?api_key=$API_KEY&language=en-US&page=8',
     );
     return json.decode(response.body);
   }

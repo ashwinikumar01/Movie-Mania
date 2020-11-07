@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Completer<void> _refreshCompleter;
+
   @override
   void initState() {
-    BlocProvider.of<MovieBloc>(context).add(MovieRequested());
     super.initState();
+    _refreshCompleter = Completer<void>();
+  }
+
+  @override
+  void didChangeDependencies() {
+    BlocProvider.of<MovieBloc>(context).add(MovieRequested());
+    super.didChangeDependencies();
   }
 
   @override
@@ -25,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black26,
         title: Text(
           'Movie Mania',
           style: GoogleFonts.montserrat(
@@ -42,7 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: BlocBuilder<MovieBloc, MovieState>(
+      body: BlocConsumer<MovieBloc, MovieState>(
+        listener: (context, state) {
+          if (state is MovieLoadSuccess) {
+            _refreshCompleter?.complete();
+            _refreshCompleter = Completer();
+          }
+        },
         builder: (context, state) {
           if (state is MovieLoadInProgress) {
             return Loader();
@@ -55,32 +71,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return allData == null
                 ? CircularProgressIndicator()
-                : ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: <Widget>[
-                      DiscoverCard(query: query, allData: allData),
-                      MoviesListCard(
-                        title: 'Popular Movies',
-                        allData: allData,
-                        data: popularDataa,
-                      ),
-                      MoviesListCard(
-                        title: 'Top Rated Movies',
-                        allData: allData,
-                        data: topData,
-                      ),
-                      MoviesListCard(
-                        title: 'Trending',
-                        allData: allData,
-                        data: trending,
-                      ),
-                    ],
+                : RefreshIndicator(
+                    onRefresh: () {
+                      BlocProvider.of<MovieBloc>(context).add(
+                        MovieRefreshRequested(),
+                      );
+                      return _refreshCompleter.future;
+                    },
+                    child: ListView(
+                      physics: BouncingScrollPhysics(),
+                      children: <Widget>[
+                        DiscoverCard(query: query, allData: allData),
+                        MoviesListCard(
+                          title: 'Popular Movies',
+                          allData: allData,
+                          data: popularDataa,
+                        ),
+                        MoviesListCard(
+                          title: 'Top Rated Movies',
+                          allData: allData,
+                          data: topData,
+                        ),
+                        MoviesListCard(
+                          title: 'Trending Of Week',
+                          allData: allData,
+                          data: trending,
+                        ),
+                      ],
+                    ),
                   );
           }
           if (state is MovieLoadFailure) {
-            return Text(
-              'Something went wrong!',
-              style: TextStyle(color: Colors.red),
+            return Center(
+              child: Text(
+                'Something went wrong!',
+                style: TextStyle(color: Colors.red),
+              ),
             );
           }
 
