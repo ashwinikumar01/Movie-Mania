@@ -31,6 +31,13 @@ class MovieApiClient {
 
   getPopularData() async {
     http.Response response = await http.get(
+      'https://api.themoviedb.org/3/movie/popular?api_key=fc2b0dba0d919d6fe466757b493cc698&language=en-US&page=1',
+    );
+    return json.decode(response.body);
+  }
+
+  getTopRatedData() async {
+    http.Response response = await http.get(
       'https://api.themoviedb.org/3/movie/top_rated?api_key=fc2b0dba0d919d6fe466757b493cc698&language=en-US&page=1',
     );
     return json.decode(response.body);

@@ -28,16 +28,19 @@ class MovieLoadInProgress extends MovieState {}
 class MovieLoadSuccess extends MovieState {
   final MovieDiscover movieDiscover;
   final popularData;
+  final topRatedData;
 
   MovieLoadSuccess({
     @required this.movieDiscover,
     @required this.popularData,
+    @required this.topRatedData,
   });
 
   @override
   List<Object> get props => [
         movieDiscover,
         popularData,
+        topRatedData,
       ];
 }
 
@@ -63,11 +66,13 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
     final allData = await movieRepository.getAllData();
     final populaarData = await movieRepository.getPopularData();
+    final topRatedData = await movieRepository.getTopRatedData();
 
     try {
       yield MovieLoadSuccess(
         movieDiscover: allData,
         popularData: populaarData,
+        topRatedData: topRatedData,
       );
     } catch (_) {
       yield MovieLoadFailure();

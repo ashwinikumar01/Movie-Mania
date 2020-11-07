@@ -15,11 +15,7 @@ class MovieRepository {
     return movieApiClient.getPopularData();
   }
 
-  // Future<MovieDiscover> getTopRated() async {
-  //   return movieApiClient.getTopRated();
-  // }
-
-  // fetchTotalData() async {
-  //   return movieApiClient.fetchTotalData();
-  // }
+  getTopRatedData() async {
+    return movieApiClient.getTopRatedData();
+  }
 }

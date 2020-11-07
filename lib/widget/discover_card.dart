@@ -7,13 +7,17 @@ import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
 
 class DiscoverCard extends StatelessWidget {
-  final MovieDiscover movieDiscover;
+  const DiscoverCard({
+    Key key,
+    @required this.query,
+    @required this.allData,
+  }) : super(key: key);
 
-  DiscoverCard({Key key, this.movieDiscover});
+  final double query;
+  final MovieDiscover allData;
 
   @override
   Widget build(BuildContext context) {
-    final query = MediaQuery.of(context).size.height;
     return SizedBox(
       width: double.infinity,
       height: query / 2.9,
@@ -38,7 +42,7 @@ class DiscoverCard extends StatelessWidget {
           ),
           Expanded(
             child: Swiper(
-              itemCount: movieDiscover.results.length,
+              itemCount: allData.results.length,
               viewportFraction: 0.75,
               scale: 0.9,
               autoplay: true,
@@ -47,7 +51,7 @@ class DiscoverCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: FadeInImage(
                     image: CachedNetworkImageProvider(
-                        IMAGE_URL + movieDiscover.results[index].posterPath),
+                        IMAGE_URL + allData.results[index].posterPath),
                     fit: BoxFit.cover,
                     placeholder: AssetImage('assets/loading.gif'),
                     placeholderErrorBuilder: (context, url, error) =>
