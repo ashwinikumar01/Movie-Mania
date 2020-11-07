@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
 
 class DiscoverCard extends StatelessWidget {
-  final MovieDiscover movieData;
+  final MovieDiscover movieDiscover;
 
-  DiscoverCard({@required this.movieData}) : assert(movieData != null);
+  DiscoverCard({Key key, this.movieDiscover});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class DiscoverCard extends StatelessWidget {
           ),
           Expanded(
             child: Swiper(
-              itemCount: movieData.results.length,
+              itemCount: movieDiscover.results.length,
               viewportFraction: 0.75,
               scale: 0.9,
               autoplay: true,
@@ -46,8 +47,7 @@ class DiscoverCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: FadeInImage(
                     image: CachedNetworkImageProvider(
-                      IMAGE_URL + movieData.results[index].posterPath,
-                    ),
+                        IMAGE_URL + movieDiscover.results[index].posterPath),
                     fit: BoxFit.cover,
                     placeholder: AssetImage('assets/loading.gif'),
                     placeholderErrorBuilder: (context, url, error) =>

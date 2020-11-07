@@ -13,11 +13,7 @@ void main() {
       MovieRepository(movieApiClient: MovieApiClient());
 
   runApp(
-    BlocProvider(
-      create: (BuildContext context) =>
-          MovieBloc(movieRepository: movieRepository),
-      child: App(movieRepository: movieRepository),
-    ),
+    App(movieRepository: movieRepository),
   );
 }
 

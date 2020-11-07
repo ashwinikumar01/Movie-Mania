@@ -1,14 +1,16 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 
+import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:movie_app/constants/constants.dart';
+
 import 'package:movie_app/model/movie_discover.dart';
 
-import 'package:movie_app/model/popular_movies.dart';
-
 class MovieApiClient {
-  static const baseUrl = 'https://api.themoviedb.org';
-  int page;
-  int pagge;
+  static const baseUrl = 'https://api.themoviedb.org/3';
+  // var url =
+  //     'https://api.themoviedb.org/3/popular/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1';
+
   Dio _dio;
   MovieApiClient() {
     BaseOptions options = BaseOptions(
@@ -18,10 +20,8 @@ class MovieApiClient {
 
   Future<MovieDiscover> getAllData() async {
     try {
-      final response = await _dio.get(
-        '$baseUrl/3/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=7',
-      );
-
+      final response = await _dio.get(baseUrl +
+          '/discover/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
       return MovieDiscover.fromJson(response.data);
     } on DioError catch (e) {
       print(e.error);
@@ -29,16 +29,10 @@ class MovieApiClient {
     }
   }
 
-  Future<PopularMovies> getPopularMovies() async {
-    try {
-      final response = await _dio.get(
-        '$baseUrl/3/movie/popular?api_key=$API_KEY&language=en-US&page=9',
-      );
-
-      return PopularMovies.fromJson(response.data);
-    } on DioError catch (e) {
-      print(e.error);
-      throw e.error;
-    }
+  getPopularData() async {
+    http.Response response = await http.get(
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=fc2b0dba0d919d6fe466757b493cc698&language=en-US&page=1',
+    );
+    return json.decode(response.body);
   }
 }

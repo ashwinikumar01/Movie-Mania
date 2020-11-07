@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+
 import 'package:movie_app/model/movie_discover.dart';
-import 'package:movie_app/model/popular_movies.dart';
 import 'package:movie_app/repository/movie_repository.dart';
 
 abstract class MovieEvent extends Equatable {
@@ -27,17 +27,17 @@ class MovieLoadInProgress extends MovieState {}
 
 class MovieLoadSuccess extends MovieState {
   final MovieDiscover movieDiscover;
-  final PopularMovies popularMovies;
+  final popularData;
 
   MovieLoadSuccess({
     @required this.movieDiscover,
-    @required this.popularMovies,
+    @required this.popularData,
   });
 
   @override
   List<Object> get props => [
         movieDiscover,
-        popularMovies,
+        popularData,
       ];
 }
 
@@ -60,12 +60,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
 
   Stream<MovieState> _mapFetchCaseToState(MovieEvent event) async* {
     yield MovieLoadInProgress();
-    final movieData = await movieRepository.getAllData();
-    final popularData = await movieRepository.getPopularData();
+
+    final allData = await movieRepository.getAllData();
+    final populaarData = await movieRepository.getPopularData();
+
     try {
       yield MovieLoadSuccess(
-        movieDiscover: movieData,
-        popularMovies: popularData,
+        movieDiscover: allData,
+        popularData: populaarData,
       );
     } catch (_) {
       yield MovieLoadFailure();
