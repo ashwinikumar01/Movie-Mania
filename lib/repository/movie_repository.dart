@@ -18,4 +18,8 @@ class MovieRepository {
   getTopRatedData() async {
     return movieApiClient.getTopRatedData();
   }
+
+  getTrendingOfWeek() async {
+    return movieApiClient.getTrendingMovieOfWeek();
+  }
 }

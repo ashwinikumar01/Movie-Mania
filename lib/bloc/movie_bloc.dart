@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-
 import 'package:movie_app/model/movie_discover.dart';
 import 'package:movie_app/repository/movie_repository.dart';
 
@@ -29,11 +28,13 @@ class MovieLoadSuccess extends MovieState {
   final MovieDiscover movieDiscover;
   final popularData;
   final topRatedData;
+  final trending;
 
   MovieLoadSuccess({
     @required this.movieDiscover,
     @required this.popularData,
     @required this.topRatedData,
+    @required this.trending,
   });
 
   @override
@@ -41,6 +42,7 @@ class MovieLoadSuccess extends MovieState {
         movieDiscover,
         popularData,
         topRatedData,
+        trending,
       ];
 }
 
@@ -67,12 +69,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     final allData = await movieRepository.getAllData();
     final populaarData = await movieRepository.getPopularData();
     final topRatedData = await movieRepository.getTopRatedData();
+    final trending = await movieRepository.getTrendingOfWeek();
 
     try {
       yield MovieLoadSuccess(
         movieDiscover: allData,
         popularData: populaarData,
         topRatedData: topRatedData,
+        trending: trending,
       );
     } catch (_) {
       yield MovieLoadFailure();

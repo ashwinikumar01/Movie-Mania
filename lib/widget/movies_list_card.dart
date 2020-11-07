@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MoviesListCard extends StatelessWidget {
   const MoviesListCard({
@@ -26,13 +27,16 @@ class MoviesListCard extends StatelessWidget {
             left: 8.0,
             top: 14.0,
           ),
-          child: Text(
-            title,
-            style: GoogleFonts.roboto(
-              textStyle: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-                fontSize: 22.0,
+          child: Shimmer.fromColors(
+            baseColor: Colors.white,
+            highlightColor: Colors.blue,
+            child: Text(
+              title,
+              style: GoogleFonts.roboto(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
+                ),
               ),
             ),
           ),

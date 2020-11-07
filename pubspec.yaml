@@ -33,6 +33,7 @@ dependencies:
   flutter_swiper: ^1.1.6
   google_fonts: ^1.1.1
   http: ^0.12.2
+  shimmer: ^1.1.2
 
 dev_dependencies:
   flutter_test:

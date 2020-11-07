@@ -28,6 +28,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Weather Forecast',
+      debugShowCheckedModeBanner: false,
       home: BlocProvider(
         create: (context) => MovieBloc(movieRepository: movieRepository),
         child: HomeScreen(),

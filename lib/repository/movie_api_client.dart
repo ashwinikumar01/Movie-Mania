@@ -8,8 +8,6 @@ import 'package:movie_app/model/movie_discover.dart';
 
 class MovieApiClient {
   static const baseUrl = 'https://api.themoviedb.org/3';
-  // var url =
-  //     'https://api.themoviedb.org/3/popular/movie?api_key=$API_KEY&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1';
 
   Dio _dio;
   MovieApiClient() {
@@ -31,15 +29,21 @@ class MovieApiClient {
 
   getPopularData() async {
     http.Response response = await http.get(
-      'https://api.themoviedb.org/3/movie/popular?api_key=fc2b0dba0d919d6fe466757b493cc698&language=en-US&page=1',
+      '$baseUrl/movie/popular?api_key=$API_KEY&language=en-US&page=1',
     );
     return json.decode(response.body);
   }
 
   getTopRatedData() async {
     http.Response response = await http.get(
-      'https://api.themoviedb.org/3/movie/top_rated?api_key=fc2b0dba0d919d6fe466757b493cc698&language=en-US&page=1',
+      '$baseUrl/movie/top_rated?api_key=$API_KEY&language=en-US&page=1',
     );
+    return json.decode(response.body);
+  }
+
+  getTrendingMovieOfWeek() async {
+    http.Response response =
+        await http.get('$baseUrl/trending/movie/week?api_key=$API_KEY');
     return json.decode(response.body);
   }
 }
