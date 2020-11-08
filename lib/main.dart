@@ -4,6 +4,7 @@ import 'package:movie_app/bloc/movie_bloc.dart';
 import 'package:movie_app/repository/movie_api_client.dart';
 import 'package:movie_app/repository/movie_repository.dart';
 import 'package:movie_app/simple_bloc_observer.dart';
+import 'package:movie_app/ui/bottom_bars.dart';
 import 'package:movie_app/ui/home_screen.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
         create: (context) => MovieBloc(movieRepository: movieRepository),
-        child: HomeScreen(),
+        child: BottomBars(),
       ),
     );
   }

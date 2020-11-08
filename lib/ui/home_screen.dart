@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/bloc/movie_bloc.dart';
+import 'package:movie_app/model/genre.dart';
+import 'package:movie_app/ui/movie_search.dart';
 
 import 'package:movie_app/widget/discover_card.dart';
 import 'package:movie_app/widget/loader.dart';
@@ -16,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Completer<void> _refreshCompleter;
+  List<Genre> _genres;
 
   @override
   void initState() {
@@ -45,12 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
         ),
         centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          )
-        ],
       ),
       body: BlocConsumer<MovieBloc, MovieState>(
         listener: (context, state) {
