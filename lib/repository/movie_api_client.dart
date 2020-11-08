@@ -46,4 +46,10 @@ class MovieApiClient {
         await http.get('$baseUrl/trending/movie/week?api_key=$API_KEY');
     return json.decode(response.body);
   }
+
+  getUpcomingMovies() async {
+    http.Response response = await http
+        .get('$baseUrl/movie/upcoming?api_key=$API_KEY&language=en-US&page=1');
+    return json.decode(response.body);
+  }
 }

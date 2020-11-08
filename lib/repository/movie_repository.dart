@@ -22,4 +22,8 @@ class MovieRepository {
   getTrendingOfWeek() async {
     return movieApiClient.getTrendingMovieOfWeek();
   }
+
+  getUpcomingMovies() async {
+    return movieApiClient.getUpcomingMovies();
+  }
 }
