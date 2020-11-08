@@ -60,18 +60,24 @@ class MoviesListCard extends StatelessWidget {
                     Expanded(
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 2.9,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: FadeInImage(
-                            image: CachedNetworkImageProvider(
-                              IMAGE_URL + data['results'][index]['poster_path'],
+                        child: GestureDetector(
+                          onTap: () {
+                            print('dd');
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: FadeInImage(
+                              image: CachedNetworkImageProvider(
+                                IMAGE_URL +
+                                    data['results'][index]['poster_path'],
+                              ),
+                              fit: BoxFit.cover,
+                              placeholder: AssetImage(
+                                'assets/loading.gif',
+                              ),
+                              placeholderErrorBuilder: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
-                            fit: BoxFit.cover,
-                            placeholder: AssetImage(
-                              'assets/loading.gif',
-                            ),
-                            placeholderErrorBuilder: (context, url, error) =>
-                                Icon(Icons.error),
                           ),
                         ),
                       ),
