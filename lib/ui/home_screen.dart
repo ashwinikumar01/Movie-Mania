@@ -69,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             final topData = state.topRatedData;
             final trending = state.trending;
             final upcoming = state.upcomingMovies;
+            final nowPlaying = state.nowPlayingMovies;
 
             return allData == null
                 ? CircularProgressIndicator()
@@ -103,6 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           allData: allData,
                           data: upcoming,
                         ),
+                        MoviesListCard(
+                          title: 'Now Playing',
+                          allData: allData,
+                          data: nowPlaying,
+                        ),
+                        SizedBox(height: query / 36.0),
                       ],
                     ),
                   );
