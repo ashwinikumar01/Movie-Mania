@@ -35,6 +35,7 @@ class MovieLoadSuccess extends MovieState {
   final topRatedData;
   final trending;
   final upcomingMovies;
+  final nowPlayingMovies;
 
   MovieLoadSuccess({
     @required this.movieDiscover,
@@ -42,6 +43,7 @@ class MovieLoadSuccess extends MovieState {
     @required this.topRatedData,
     @required this.trending,
     @required this.upcomingMovies,
+    @required this.nowPlayingMovies,
   });
 
   @override
@@ -51,6 +53,7 @@ class MovieLoadSuccess extends MovieState {
         topRatedData,
         trending,
         upcomingMovies,
+        nowPlayingMovies,
       ];
 }
 
@@ -61,15 +64,6 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   MovieBloc({@required this.movieRepository})
       : assert(movieRepository != null),
         super(null);
-
-  // @override
-  // Stream<MovieState> mapEventToState(
-  //   MovieEvent event,
-  // ) async* {
-  //   if (event is MovieRequested) {
-  //     yield* _mapFetchCaseToState(event);
-  //   }
-  // }
 
   @override
   Stream<MovieState> mapEventToState(
@@ -90,6 +84,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     final topRatedData = await movieRepository.getTopRatedData();
     final trending = await movieRepository.getTrendingOfWeek();
     final upcomingMovies = await movieRepository.getUpcomingMovies();
+    final nowPlayingMovies = await movieRepository.getNowPlayingMovies();
     try {
       yield MovieLoadSuccess(
         movieDiscover: allData,
@@ -97,6 +92,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         topRatedData: topRatedData,
         trending: trending,
         upcomingMovies: upcomingMovies,
+        nowPlayingMovies: nowPlayingMovies,
       );
     } catch (_) {
       yield MovieLoadFailure();
@@ -112,12 +108,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       final topRatedData = await movieRepository.getTopRatedData();
       final trending = await movieRepository.getTrendingOfWeek();
       final upcomingMovies = await movieRepository.getUpcomingMovies();
+      final nowPlayingMovies = await movieRepository.getNowPlayingMovies();
       yield MovieLoadSuccess(
         movieDiscover: allData,
         popularData: populaarData,
         topRatedData: topRatedData,
         trending: trending,
         upcomingMovies: upcomingMovies,
+        nowPlayingMovies: nowPlayingMovies,
       );
     } catch (_) {}
   }

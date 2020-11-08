@@ -52,4 +52,10 @@ class MovieApiClient {
         .get('$baseUrl/movie/upcoming?api_key=$API_KEY&language=en-US&page=1');
     return json.decode(response.body);
   }
+
+  getNowPlayingMovies() async {
+    http.Response response = await http.get(
+        '$baseUrl/movie/now_playing?api_key=$API_KEY&language=en-US&page=1&region=in');
+    return json.decode(response.body);
+  }
 }

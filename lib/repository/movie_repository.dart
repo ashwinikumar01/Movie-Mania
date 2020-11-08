@@ -26,4 +26,8 @@ class MovieRepository {
   getUpcomingMovies() async {
     return movieApiClient.getUpcomingMovies();
   }
+
+  getNowPlayingMovies() async {
+    return movieApiClient.getNowPlayingMovies();
+  }
 }
