@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
             final popularDataa = state.popularData;
             final topData = state.topRatedData;
             final trending = state.trending;
+            final upcoming = state.upcomingMovies;
 
             return allData == null
                 ? CircularProgressIndicator()
@@ -96,6 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           title: 'Trending Of Week',
                           allData: allData,
                           data: trending,
+                        ),
+                        MoviesListCard(
+                          title: 'Upcoming Movies',
+                          allData: allData,
+                          data: upcoming,
                         ),
                       ],
                     ),

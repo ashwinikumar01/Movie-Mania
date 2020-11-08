@@ -10,7 +10,7 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SpinKitCubeGrid(
-        color: Colors.white,
+        color: Colors.blue,
         size: 90.0,
       ),
     );
