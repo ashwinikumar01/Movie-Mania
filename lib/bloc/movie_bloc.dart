@@ -34,12 +34,14 @@ class MovieLoadSuccess extends MovieState {
   final popularData;
   final topRatedData;
   final trending;
+  final upcomingMovies;
 
   MovieLoadSuccess({
     @required this.movieDiscover,
     @required this.popularData,
     @required this.topRatedData,
     @required this.trending,
+    @required this.upcomingMovies,
   });
 
   @override
@@ -48,6 +50,7 @@ class MovieLoadSuccess extends MovieState {
         popularData,
         topRatedData,
         trending,
+        upcomingMovies,
       ];
 }
 
@@ -86,13 +89,14 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     final populaarData = await movieRepository.getPopularData();
     final topRatedData = await movieRepository.getTopRatedData();
     final trending = await movieRepository.getTrendingOfWeek();
-
+    final upcomingMovies = await movieRepository.getUpcomingMovies();
     try {
       yield MovieLoadSuccess(
         movieDiscover: allData,
         popularData: populaarData,
         topRatedData: topRatedData,
         trending: trending,
+        upcomingMovies: upcomingMovies,
       );
     } catch (_) {
       yield MovieLoadFailure();
@@ -107,11 +111,13 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       final populaarData = await movieRepository.getPopularData();
       final topRatedData = await movieRepository.getTopRatedData();
       final trending = await movieRepository.getTrendingOfWeek();
+      final upcomingMovies = await movieRepository.getUpcomingMovies();
       yield MovieLoadSuccess(
         movieDiscover: allData,
         popularData: populaarData,
         topRatedData: topRatedData,
         trending: trending,
+        upcomingMovies: upcomingMovies,
       );
     } catch (_) {}
   }
