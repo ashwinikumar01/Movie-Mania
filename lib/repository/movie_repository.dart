@@ -30,4 +30,12 @@ class MovieRepository {
   getNowPlayingMovies() async {
     return movieApiClient.getNowPlayingMovies();
   }
+
+  searchMovies() async {
+    return movieApiClient.searchMovies();
+  }
+
+  getGenres() async {
+    return movieApiClient.getGenres();
+  }
 }

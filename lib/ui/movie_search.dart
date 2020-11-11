@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/model/genre.dart';
 import 'package:movie_app/model/movie_discover.dart';
 
-class MovieSearch extends SearchDelegate<Result> {
-  final List<Genre> genres;
-  MovieSearch({this.genres});
+class MovieSearch extends SearchDelegate {
+  List<MovieDiscover> movieDiscover;
 
+  MovieSearch(this.movieDiscover);
   @override
   List<Widget> buildActions(BuildContext context) {
+    // TODO: implement buildActions
     return [
       IconButton(
         icon: Icon(
           Icons.clear,
-          color: Colors.white,
+          color: Colors.lightGreen,
         ),
         onPressed: () {
           query = '';
@@ -23,6 +24,7 @@ class MovieSearch extends SearchDelegate<Result> {
 
   @override
   Widget buildLeading(BuildContext context) {
+    // TODO: implement buildLeading
     return IconButton(
       icon: Icon(
         Icons.arrow_back,
@@ -35,9 +37,27 @@ class MovieSearch extends SearchDelegate<Result> {
   }
 
   @override
-  Widget buildSuggestions(BuildContext context) {
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
     return Container(
-      color: Colors.grey,
+        // @override
+        // void initState() {
+        //   super.initState();
+
+        // }
+        child: ListView.builder(
+      itemCount: 7,
+      itemBuilder: (context, index) {
+        return Text(movieDiscover[index].results[index].originalTitle);
+      },
+    ));
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    return Container(
+      color: Colors.black,
       child: Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +69,7 @@ class MovieSearch extends SearchDelegate<Result> {
             child: Icon(
               Icons.search,
               size: 50,
-              color: Colors.white,
+              color: Colors.black,
             ),
           ),
           Text(
@@ -58,11 +78,5 @@ class MovieSearch extends SearchDelegate<Result> {
         ],
       )),
     );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
-    throw UnimplementedError();
   }
 }

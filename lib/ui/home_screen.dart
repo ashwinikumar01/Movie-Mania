@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/bloc/movie_bloc.dart';
 import 'package:movie_app/model/genre.dart';
+import 'package:movie_app/model/movie_discover.dart';
 import 'package:movie_app/ui/movie_search.dart';
 
 import 'package:movie_app/widget/discover_card.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Completer<void> _refreshCompleter;
-  List<Genre> _genres;
+  List<MovieDiscover> movieDiscover;
 
   @override
   void initState() {
@@ -48,6 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
         ),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () => showSearch(
+              context: context,
+              delegate: MovieSearch(movieDiscover),
+            ),
+          )
+        ],
       ),
       body: BlocConsumer<MovieBloc, MovieState>(
         listener: (context, state) {
@@ -80,31 +90,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       physics: BouncingScrollPhysics(),
                       children: <Widget>[
-                        DiscoverCard(query: query, allData: allData),
+                        DiscoverCard(
+                          query: query,
+                          allData: allData,
+                          movieData: allData,
+                        ),
                         MoviesListCard(
                           title: 'Popular Movies',
                           allData: allData,
                           data: popularDataa,
+                          movieData: popularDataa,
                         ),
                         MoviesListCard(
                           title: 'Top Rated Movies',
                           allData: allData,
                           data: topData,
+                          movieData: topData,
                         ),
                         MoviesListCard(
                           title: 'Trending Of Week',
                           allData: allData,
                           data: trending,
+                          movieData: trending,
                         ),
                         MoviesListCard(
                           title: 'Upcoming Movies',
                           allData: allData,
                           data: upcoming,
+                          movieData: upcoming,
                         ),
                         MoviesListCard(
                           title: 'Now Playing',
                           allData: allData,
                           data: nowPlaying,
+                          movieData: nowPlaying,
                         ),
                         SizedBox(height: query / 36.0),
                       ],

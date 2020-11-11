@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/bloc/movie_bloc.dart';
 import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
+import 'package:movie_app/ui/movie_details.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MoviesListCard extends StatelessWidget {
@@ -11,10 +14,12 @@ class MoviesListCard extends StatelessWidget {
     @required this.allData,
     @required this.data,
     @required this.title,
+    this.movieData,
   }) : super(key: key);
 
   final MovieDiscover allData;
   final data;
+  final movieData;
   final String title;
 
   @override
@@ -61,9 +66,14 @@ class MoviesListCard extends StatelessWidget {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 2.9,
                         child: GestureDetector(
-                          onTap: () {
-                            print('dd');
-                          },
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetails(
+                                data: movieData,
+                              ),
+                            ),
+                          ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: FadeInImage(

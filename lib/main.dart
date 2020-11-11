@@ -28,10 +28,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather Forecast',
+      title: 'Movie Mania',
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
-        create: (context) => MovieBloc(movieRepository: movieRepository),
+        create: (BuildContext context) =>
+            MovieBloc(movieRepository: movieRepository),
         child: BottomBars(),
       ),
     );

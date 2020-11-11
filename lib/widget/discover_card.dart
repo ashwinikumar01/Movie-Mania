@@ -2,19 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
+import 'package:movie_app/ui/movie_details.dart';
 
 class DiscoverCard extends StatelessWidget {
   const DiscoverCard({
     Key key,
     @required this.query,
     @required this.allData,
+    @required this.movieData,
   }) : super(key: key);
 
   final double query;
   final MovieDiscover allData;
+  final movieData;
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +49,26 @@ class DiscoverCard extends StatelessWidget {
               scale: 0.9,
               autoplay: true,
               itemBuilder: (BuildContext context, int index) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: FadeInImage(
-                    image: CachedNetworkImageProvider(
-                        IMAGE_URL + allData.results[index].posterPath),
-                    fit: BoxFit.cover,
-                    placeholder: AssetImage('assets/loading.gif'),
-                    placeholderErrorBuilder: (context, url, error) =>
-                        Icon(Icons.error),
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MovieDetails(
+                        data: movieData,
+                        // result: allData.results[index],
+                      ),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: FadeInImage(
+                      image: CachedNetworkImageProvider(
+                          IMAGE_URL + allData.results[index].posterPath),
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('assets/loading.gif'),
+                      placeholderErrorBuilder: (context, url, error) =>
+                          Icon(Icons.error),
+                    ),
                   ),
                 );
               },
