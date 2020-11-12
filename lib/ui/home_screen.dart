@@ -1,13 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/bloc/movie_bloc.dart';
-import 'package:movie_app/model/genre.dart';
 import 'package:movie_app/model/movie_discover.dart';
 import 'package:movie_app/ui/movie_search.dart';
-
 import 'package:movie_app/widget/discover_card.dart';
 import 'package:movie_app/widget/loader.dart';
 import 'package:movie_app/widget/movies_list_card.dart';
@@ -93,37 +90,31 @@ class _HomeScreenState extends State<HomeScreen> {
                         DiscoverCard(
                           query: query,
                           allData: allData,
-                          movieData: allData,
                         ),
                         MoviesListCard(
                           title: 'Popular Movies',
                           allData: allData,
                           data: popularDataa,
-                          movieData: popularDataa,
                         ),
                         MoviesListCard(
                           title: 'Top Rated Movies',
                           allData: allData,
                           data: topData,
-                          movieData: topData,
                         ),
                         MoviesListCard(
                           title: 'Trending Of Week',
                           allData: allData,
                           data: trending,
-                          movieData: trending,
                         ),
                         MoviesListCard(
                           title: 'Upcoming Movies',
                           allData: allData,
                           data: upcoming,
-                          movieData: upcoming,
                         ),
                         MoviesListCard(
                           title: 'Now Playing',
                           allData: allData,
                           data: nowPlaying,
-                          movieData: nowPlaying,
                         ),
                         SizedBox(height: query / 36.0),
                       ],

@@ -4,19 +4,19 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/constants/constants.dart';
 import 'package:movie_app/model/movie_discover.dart';
-import 'package:movie_app/ui/movie_details.dart';
+import 'package:movie_app/widget/movie_details.dart';
 
 class DiscoverCard extends StatelessWidget {
   const DiscoverCard({
     Key key,
     @required this.query,
     @required this.allData,
-    @required this.movieData,
+    //  @required this.movieData,
   }) : super(key: key);
 
   final double query;
   final MovieDiscover allData;
-  final movieData;
+  // final movieData;
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,10 @@ class DiscoverCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => MovieDetails(
-                        data: movieData,
-                        // result: allData.results[index],
+                        dataa: allData.results[index],
+                        // result: allData.results,
+                        // // data: movieData,
+                        // // result: allData.results,
                       ),
                     ),
                   ),
