@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   auto_size_text: ^2.1.0
-  cached_network_image: ^2.3.3
+  cached_network_image: any
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
   equatable: ^1.2.5

@@ -1,10 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/ui/genres_screen.dart';
 import 'package:movie_app/ui/home_screen.dart';
-import 'package:movie_app/ui/movie_search.dart';
 
 class BottomBars extends StatefulWidget {
   @override
@@ -39,7 +35,7 @@ class _BottomBarsState extends State<BottomBars> {
           },
           children: <Widget>[
             HomeScreen(),
-            GenresScreen(),
+            // GenresScreen(),
           ],
         ),
       ),

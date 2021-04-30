@@ -66,9 +66,9 @@ class MovieApiClient {
     return json.decode(response.body);
   }
 
-  getGenres() async {
-    http.Response response = await http
-        .get('$baseUrl/genre/movie/list?api_key=$API_KEY&language=en-US');
-    return json.decode(response.body);
-  }
+  // getGenres() async {
+  //   http.Response response = await http
+  //       .get('$baseUrl/genre/movie/list?api_key=$API_KEY&language=en-US');
+  //   return json.decode(response.body);
+  // }
 }

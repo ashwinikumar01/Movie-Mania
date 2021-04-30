@@ -35,7 +35,7 @@ class MovieRepository {
     return movieApiClient.searchMovies();
   }
 
-  getGenres() async {
-    return movieApiClient.getGenres();
-  }
+  // getGenres() async {
+  //   return movieApiClient.getGenres();
+  // }
 }
